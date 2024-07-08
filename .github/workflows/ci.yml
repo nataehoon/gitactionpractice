@@ -44,6 +44,10 @@ on:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     env:
@@ -73,3 +77,5 @@ jobs:
     # Restore the application to populate the obj folder with Runtime Identifiers
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
