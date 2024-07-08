@@ -46,10 +46,20 @@ jobs:
   test:
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
+    env:
+      Test_Project_Path: Blazor\Blazor.csproj
+    
     steps:
     # Install the .NET Core workload
     - name: Install .NET 6.0
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+
+    # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.1
+
+    # Test
+    - name: Execute Unit Tests
+      run: dotnet test $env:Test_Project_Path
