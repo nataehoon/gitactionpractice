@@ -61,12 +61,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     
-    #SetUp .Net Core Sdk
-    - name: Setup .Net Core
-      uses: action/setup-dotnet@v4
-      with:
-        dotnet-version: 6.0.x
-
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
