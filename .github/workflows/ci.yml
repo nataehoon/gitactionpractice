@@ -63,7 +63,7 @@ jobs:
     
     #SetUp .Net Core Sdk
     - name: Setup .Net Core
-      uses: action/serup-dotnet@v4
+      uses: action/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
 
