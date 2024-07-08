@@ -50,16 +50,33 @@ jobs:
       Test_Project_Path: Blazor\Blazor.csproj
     
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+      fetch-depth: 0
+      
     # Install the .NET Core workload
     - name: Install .NET 6.0
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+    
+    #SetUp .Net Core Sdk
+    - name: Setup .Net Core
+      uses: action/serup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
 
     # Add  MsBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v2
 
     # Test
-    - name: Execute Unit Tests
-      run: dotnet test $env:Test_Project_Path
+    - name: Execute unit tests
+      run: dotnet test
+      
+    # Restore the application to populate the obj folder with Runtime Identifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
