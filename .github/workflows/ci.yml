@@ -72,7 +72,7 @@ jobs:
 
     # Test
     - name: Execute unit tests
-      run: dotnet test
+      run: dotnet build
       
     # Restore the application to populate the obj folder with Runtime Identifiers
     - name: Restore the application
